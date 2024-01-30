@@ -1,7 +1,8 @@
 import Header from '../components/Header';
 import styled from 'styled-components';
 
-import bearImg from '../assets/bears.jpg';
+import baldiesImg from '../assets/baldies.png';
+
 const Landing = () => {
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
@@ -20,7 +21,7 @@ const Landing = () => {
           <h1>Find them!</h1>
         </Title>
         <Image>
-          <img onClick={handleClick} src={bearImg} />
+          <img onClick={handleClick} src={baldiesImg} />
         </Image>
       </StyledMain>
     </>
