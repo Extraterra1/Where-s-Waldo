@@ -28,7 +28,7 @@ const Header = () => {
     <>
       <HeaderContainer>
         <Link to="/">
-          <div className="title">RESTless Blogging</div>
+          <div className="title">Where's Baldo</div>
         </Link>
       </HeaderContainer>
     </>
