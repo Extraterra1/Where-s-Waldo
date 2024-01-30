@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import bearImg from '../assets/bears.jpg';
 const Landing = () => {
   const handleClick = (e) => {
-    console.log(e);
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+    const { width, height } = e.target;
+
+    const normalizedX = x / width;
+    const normalidzedY = y / height;
   };
 
   return (
