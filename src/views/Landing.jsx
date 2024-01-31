@@ -101,6 +101,7 @@ const Image = styled.div`
   width: 100%;
   position: relative;
   overflow: hidden;
+  cursor: crosshair;
 
   & > img {
     width: 100%;
