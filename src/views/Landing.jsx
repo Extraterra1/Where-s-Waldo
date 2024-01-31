@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 import baldiesImg from '../assets/baldies.png';
 
@@ -10,18 +11,27 @@ const Landing = () => {
     const { width, height } = e.target;
 
     const normalizedX = x / width;
-    const normalidzedY = y / height;
+    const normalizedY = y / height;
+
+    console.log(`(${normalizedX}, ${normalizedY})`);
   };
+
+  const updateCoords = (e) => {};
 
   return (
     <>
+      <Coords>
+        <h3>Current Position:</h3>
+        <span>X: </span>
+        <span>Y: </span>
+      </Coords>
       <Header />
       <StyledMain>
         <Title>
           <h1>Find them!</h1>
         </Title>
         <Image>
-          <img onClick={handleClick} src={baldiesImg} />
+          <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
         </Image>
       </StyledMain>
     </>
@@ -29,6 +39,18 @@ const Landing = () => {
 };
 
 export default Landing;
+
+const Coords = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: var(--gray);
+  font-size: 1.5rem;
+`;
 
 const StyledMain = styled.main`
   background-color: var(--dark-hover);
