@@ -8,7 +8,7 @@ import WebFont from 'webfontloader';
 
 WebFont.load({
   google: {
-    families: ['Sixtyfour:400', 'Oswald: 300:400:700', 'Playfair Display:400,500,700']
+    families: ['Sixtyfour:400', 'Oswald:300,400,700', 'Playfair Display:400,500,700']
   }
 });
 

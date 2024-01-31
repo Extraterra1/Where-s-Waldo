@@ -5,6 +5,8 @@ import { Icon } from '@iconify/react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useStopwatch } from 'react-timer-hook';
 
+import StyledModal from '../components/StyledModal';
+
 import baldiesImg from '../assets/baldies.png';
 import beardieImg from '../assets/beardie.png';
 import unibrowImg from '../assets/unibrow.png';
@@ -72,6 +74,7 @@ const Landing = () => {
   return (
     <>
       <Toaster toastOptions={{ style: { fontSize: '1.5rem' } }} />
+      <StyledModal isOpen={gameOver} />
 
       <Header minutes={minutes} seconds={seconds} />
       <StyledMain>
