@@ -57,6 +57,24 @@ const Landing = () => {
     setCoords({ x: normalizedX, y: normalizedY });
   };
 
+  const handleCharacterClick = (character) => {
+    const characterState = gameState[character];
+    if (characterState.found) return null;
+
+    console.log(`${character} is at ${characterState.x} / ${characterState.y}`);
+
+    if (characterState.x.toFixed(1) !== lastClick.x.toFixed(1) || characterState.y.toFixed(1) !== lastClick.y.toFixed(1)) {
+      setMenuIsOpen(false);
+      return console.log('not there');
+    }
+
+    console.log('found');
+
+    characterState.found = true;
+    setGameState({ ...gameState, characterState });
+    setMenuIsOpen(false);
+  };
+
   return (
     <>
       <Coords>
@@ -88,15 +106,15 @@ const Landing = () => {
           <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
           <div className="select-character" style={{ visibility: menuIsOpen ? 'visible' : 'none', display: menuIsOpen ? 'block' : 'none' }}>
             <div className="item">
-              <img src={beardieImg} className={gameState.beard.found ? 'found' : null} />
+              <img src={beardieImg} className={gameState.beard.found ? 'found' : null} onClick={() => handleCharacterClick('beard')} />
               <span>Beardie</span>
             </div>
             <div className="item">
-              <img src={unibrowImg} className={gameState.unibrow.found ? 'found' : null} />
+              <img src={unibrowImg} className={gameState.unibrow.found ? 'found' : null} onClick={() => handleCharacterClick('unibrow')} />
               <span>Uni</span>
             </div>
             <div className="item">
-              <img src={squidwardImg} className={gameState.squidward.found ? 'found' : null} />
+              <img src={squidwardImg} className={gameState.squidward.found ? 'found' : null} onClick={() => handleCharacterClick('squidward')} />
               <span>Squidward</span>
             </div>
           </div>
