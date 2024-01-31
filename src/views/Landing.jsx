@@ -80,6 +80,20 @@ const Landing = () => {
         <Image $lastClick={lastClick}>
           <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
           <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
+          <div className="select-character">
+            <div className="item">
+              <img src={beardieImg} />
+              <span>Beardie</span>
+            </div>
+            <div className="item">
+              <img src={unibrowImg} />
+              <span>Uni</span>
+            </div>
+            <div className="item">
+              <img src={squidwardImg} />
+              <span>Squidward</span>
+            </div>
+          </div>
         </Image>
       </StyledMain>
     </>
@@ -87,6 +101,69 @@ const Landing = () => {
 };
 
 export default Landing;
+
+const Image = styled.div`
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  & > svg {
+    position: absolute;
+    height: 5rem;
+    width: 5rem;
+    top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% - 2.5rem);
+    left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% - 2.5rem);
+    visibility: ${(props) => (!props.$lastClick ? 'hidden' : 'inherit')};
+  }
+
+  & > .select-character {
+    position: absolute;
+    top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% + 2.5rem);
+    left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% + 2.5rem);
+    background-color: var(--dark);
+    padding: 5rem 2rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @media (max-width: 450px) {
+      padding: 3rem 1rem;
+    }
+
+    & > .item {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--light);
+      text-align: center;
+      font-size: 2rem;
+      font-family: 'Sixtyfour';
+
+      @media (max-width: 450px) {
+        font-size: 1rem;
+      }
+
+      & > img {
+        max-width: 10rem;
+        margin: 0 auto;
+        object-fit: cover;
+        border-radius: 2rem;
+        cursor: pointer;
+
+        @media (max-width: 450px) {
+          max-width: 5rem;
+        }
+      }
+    }
+  }
+`;
 
 const GameHeader = styled.div`
   text-align: center;
@@ -159,26 +236,4 @@ const Coords = styled.div`
 
 const StyledMain = styled.main`
   background-color: var(--dark-hover);
-`;
-
-const Image = styled.div`
-  height: 100%;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  cursor: crosshair;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-  }
-
-  & > svg {
-    position: absolute;
-    height: 5rem;
-    width: 5rem;
-    top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% - 2.5rem);
-    left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% - 2.5rem);
-    visibility: ${(props) => (!props.$lastClick ? 'hidden' : 'inherit')};
-  }
 `;
