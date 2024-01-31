@@ -15,6 +15,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.21.3",
+    "react-timer-hook": "^3.0.7",
     "styled-components": "^6.1.8",
     "webfontloader": "^1.6.28"
   },

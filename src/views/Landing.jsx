@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { Toaster, toast } from 'react-hot-toast';
+import { useStopwatch } from 'react-timer-hook';
 
 import baldiesImg from '../assets/baldies.png';
 import beardieImg from '../assets/beardie.png';
@@ -32,6 +33,7 @@ const Landing = () => {
   const [lastClick, setLastClick] = useState(null);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [gameState, setGameState] = useState(initialGameState);
+  const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart: true });
 
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
@@ -66,7 +68,7 @@ const Landing = () => {
 
     if (characterState.x.toFixed(1) !== lastClick.x.toFixed(1) || characterState.y.toFixed(1) !== lastClick.y.toFixed(1)) {
       setMenuIsOpen(false);
-      return toast.error("There's nothing there :(");
+      return toast.error("That's not him :(");
     }
 
     console.log('found');
@@ -80,12 +82,12 @@ const Landing = () => {
   return (
     <>
       <Toaster toastOptions={{ style: { fontSize: '1.5rem' } }} />
-      <Coords>
+      {/* <Coords>
         <h3>Current Position:</h3>
         <span>X: {coords.x}</span>
         <span>Y: {coords.y}</span>
-      </Coords>
-      <Header />
+      </Coords> */}
+      <Header minutes={minutes} seconds={seconds} />
       <StyledMain>
         <GameHeader>
           <h1>The Usual Suspects</h1>
