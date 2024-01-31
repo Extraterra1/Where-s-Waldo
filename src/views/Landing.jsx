@@ -29,7 +29,6 @@ const initialGameState = {
 };
 
 const Landing = () => {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [lastClick, setLastClick] = useState(null);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [gameState, setGameState] = useState(initialGameState);
@@ -47,17 +46,6 @@ const Landing = () => {
 
     setLastClick({ x: normalizedX, y: normalizedY });
     setMenuIsOpen(true);
-  };
-
-  const updateCoords = (e) => {
-    const x = e.nativeEvent.offsetX;
-    const y = e.nativeEvent.offsetY;
-    const { width, height } = e.target;
-
-    const normalizedX = x / width;
-    const normalizedY = y / height;
-
-    setCoords({ x: normalizedX, y: normalizedY });
   };
 
   const handleCharacterClick = (character) => {
@@ -82,11 +70,7 @@ const Landing = () => {
   return (
     <>
       <Toaster toastOptions={{ style: { fontSize: '1.5rem' } }} />
-      {/* <Coords>
-        <h3>Current Position:</h3>
-        <span>X: {coords.x}</span>
-        <span>Y: {coords.y}</span>
-      </Coords> */}
+
       <Header minutes={minutes} seconds={seconds} />
       <StyledMain>
         <GameHeader>
@@ -107,7 +91,7 @@ const Landing = () => {
           </div>
         </GameHeader>
         <Image $lastClick={lastClick}>
-          <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
+          <img onClick={handleClick} src={baldiesImg} />
           <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
           <div className="select-character" style={{ visibility: menuIsOpen ? 'visible' : 'none', display: menuIsOpen ? 'block' : 'none' }}>
             <div className="item">
