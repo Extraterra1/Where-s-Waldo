@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 
 import baldiesImg from '../assets/baldies.png';
+import beardieImg from '../assets/beardie.png';
+import unibrowImg from '../assets/unibrow.png';
+import squidwardImg from '../assets/squidward.png';
+
 const positions = {
   beard: {
     x: 0.5320487613055447,
@@ -57,7 +61,21 @@ const Landing = () => {
       <Header />
       <StyledMain>
         <Title>
-          <h1>Find them!</h1>
+          <h1>The Usual Suspects</h1>
+          <div className="characters">
+            <div className="item">
+              <img src={beardieImg} />
+              <h4>Beardie</h4>
+            </div>
+            <div className="item">
+              <img src={unibrowImg} />
+              <h4>Uni</h4>
+            </div>
+            <div className="item">
+              <img src={squidwardImg} />
+              <h4>Squidward</h4>
+            </div>
+          </div>
         </Title>
         <Image $lastClick={lastClick}>
           <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
@@ -70,10 +88,67 @@ const Landing = () => {
 
 export default Landing;
 
+const Title = styled.div`
+  text-align: center;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  font-family: 'Playfair Display';
+
+  @media (max-width: 450px) {
+    grid-template-columns: 1fr;
+  }
+
+  & > h1 {
+    font-size: 3rem;
+    color: var(--light);
+    text-align: center;
+  }
+
+  & > .characters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    place-items: center;
+    gap: 3rem;
+
+    & > .item {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      font-size: 1.5rem;
+      font-family: 'Sixtyfour';
+      color: var(--light);
+
+      @media (max-width: 450px) {
+        font-size: 1rem;
+      }
+
+      & > img {
+        border-radius: 0.5rem;
+        max-height: 10rem;
+        max-width: 10rem;
+        margin: 0 auto;
+
+        object-fit: cover;
+
+        @media (max-width: 450px) {
+          max-height: 10rem;
+        }
+      }
+    }
+  }
+`;
+
 const Coords = styled.div`
   position: fixed;
   top: 0;
   right: 0;
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 
   display: flex;
   flex-direction: column;
@@ -84,16 +159,6 @@ const Coords = styled.div`
 
 const StyledMain = styled.main`
   background-color: var(--dark-hover);
-`;
-
-const Title = styled.div`
-  text-align: center;
-  padding: 2rem;
-
-  & > h1 {
-    font-size: 3rem;
-    color: var(--light);
-  }
 `;
 
 const Image = styled.div`
