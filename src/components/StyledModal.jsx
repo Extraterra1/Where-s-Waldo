@@ -9,7 +9,7 @@ import Leaderboard from './Leaderboard';
 
 Modal.setAppElement('#root');
 
-const StyledModal = ({ isOpen, closeModal, time }) => {
+const StyledModal = ({ isOpen, setGameOver, time, resetGame }) => {
   const [user, setUser] = useState(null);
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -18,10 +18,10 @@ const StyledModal = ({ isOpen, closeModal, time }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModal} style={modalStyles}>
+    <Modal isOpen={isOpen} onRequestClose={() => setGameOver(false)} style={modalStyles}>
       <ModalContainer>
         {user ? (
-          <Leaderboard user={user} time={time} />
+          <Leaderboard user={user} time={time} resetGame={resetGame} setUser={setUser} />
         ) : (
           <>
             <h1>You win!</h1>
@@ -52,8 +52,9 @@ const StyledModal = ({ isOpen, closeModal, time }) => {
 
 StyledModal.propTypes = {
   isOpen: PropTypes.bool,
-  closeModal: PropTypes.func,
-  time: PropTypes.string
+  setGameOver: PropTypes.func,
+  time: PropTypes.string,
+  resetGame: PropTypes.func
 };
 
 export default StyledModal;

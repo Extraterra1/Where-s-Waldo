@@ -35,7 +35,7 @@ const Landing = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [gameState, setGameState] = useState(initialGameState);
   const [gameOver, setGameOver] = useState(false);
-  const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart: true });
+  const { seconds, minutes, pause, reset } = useStopwatch({ autoStart: true });
 
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
@@ -45,8 +45,6 @@ const Landing = () => {
     const normalizedX = x / width;
     const normalizedY = y / height;
 
-    console.log(`Clicked x: ${normalizedX} / y: ${normalizedY}`);
-
     setLastClick({ x: normalizedX, y: normalizedY });
     setMenuIsOpen(true);
   };
@@ -55,8 +53,6 @@ const Landing = () => {
     const characterState = gameState[character];
     if (characterState.found) return toast.error("You've already found that character");
 
-    console.log(`${character} is at ${characterState.x} / ${characterState.y}`);
-
     if (characterState.x.toFixed(1) !== lastClick.x.toFixed(1) || characterState.y.toFixed(1) !== lastClick.y.toFixed(1)) {
       setMenuIsOpen(false);
       return toast.error("That's not him :(");
@@ -64,7 +60,10 @@ const Landing = () => {
 
     characterState.found = true;
 
-    setGameState({ ...gameState, characterState });
+    const newState = { ...gameState };
+    newState[character] = characterState;
+
+    setGameState(newState);
     setMenuIsOpen(false);
 
     if (gameState.beard.found && gameState.unibrow.found && gameState.squidward.found) {
@@ -74,10 +73,32 @@ const Landing = () => {
     return toast.success('Found his ass');
   };
 
+  const resetGame = () => {
+    setGameState({
+      beard: {
+        x: 0.5320487613055447,
+        y: 0.4838709677419355,
+        found: false
+      },
+      squidward: {
+        x: 0.7695635076681085,
+        y: 0.7338709677419355,
+        found: false
+      },
+      unibrow: {
+        x: 0.28784899724734564,
+        y: 0.5280867630700778,
+        found: false
+      }
+    });
+    setGameOver(false);
+    reset();
+  };
+
   return (
     <>
       <Toaster toastOptions={{ style: { fontSize: '1.5rem' } }} />
-      <StyledModal isOpen={gameOver} time={minutes + ':' + seconds} />
+      <StyledModal isOpen={gameOver} time={minutes + ':' + seconds.toString().padStart(2, '0')} resetGame={resetGame} />
 
       <Header minutes={minutes} seconds={seconds} />
       <StyledMain>
@@ -249,23 +270,6 @@ const GameHeader = styled.div`
       }
     }
   }
-`;
-
-const Coords = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 10;
-
-  @media (max-width: 450px) {
-    display: none;
-  }
-
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: var(--gray);
-  font-size: 1.5rem;
 `;
 
 const StyledMain = styled.main`

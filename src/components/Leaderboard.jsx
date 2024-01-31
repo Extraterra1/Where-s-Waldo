@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Leaderboard = ({ user, time }) => {
+const Leaderboard = ({ user, time, resetGame, setUser }) => {
+  const handleReset = () => {
+    setUser(null);
+    resetGame();
+  };
   return (
     <>
       <Container>
@@ -14,14 +18,16 @@ const Leaderboard = ({ user, time }) => {
           <span>{time}</span>
         </Row>
       </Container>
-      <ResetBtn>Play Again</ResetBtn>
+      <ResetBtn onClick={handleReset}>Play Again</ResetBtn>
     </>
   );
 };
 
 Leaderboard.propTypes = {
   user: PropTypes.string,
-  time: PropTypes.string
+  time: PropTypes.string,
+  resetGame: PropTypes.func,
+  setUser: PropTypes.func
 };
 
 export default Leaderboard;
