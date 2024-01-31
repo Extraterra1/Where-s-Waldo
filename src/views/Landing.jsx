@@ -8,24 +8,29 @@ import beardieImg from '../assets/beardie.png';
 import unibrowImg from '../assets/unibrow.png';
 import squidwardImg from '../assets/squidward.png';
 
-const positions = {
+const initialGameState = {
   beard: {
     x: 0.5320487613055447,
-    y: 0.4838709677419355
+    y: 0.4838709677419355,
+    found: false
   },
   squidward: {
     x: 0.7664176169878096,
-    y: 0.7513904338153504
+    y: 0.7513904338153504,
+    found: false
   },
   unibrow: {
     x: 0.28784899724734564,
-    y: 0.5280867630700778
+    y: 0.5280867630700778,
+    found: false
   }
 };
 
 const Landing = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [lastClick, setLastClick] = useState(null);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [gameState, setGameState] = useState(initialGameState);
 
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
@@ -38,6 +43,7 @@ const Landing = () => {
     console.log(`Clicked x: ${normalizedX} / y: ${normalizedY}`);
 
     setLastClick({ x: normalizedX, y: normalizedY });
+    setMenuIsOpen(true);
   };
 
   const updateCoords = (e) => {
@@ -80,7 +86,7 @@ const Landing = () => {
         <Image $lastClick={lastClick}>
           <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
           <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
-          <div className="select-character">
+          <div className="select-character" style={{ visibility: menuIsOpen ? 'visible' : 'none', display: menuIsOpen ? 'block' : 'none' }}>
             <div className="item">
               <img src={beardieImg} />
               <span>Beardie</span>
@@ -222,6 +228,7 @@ const Coords = styled.div`
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 10;
 
   @media (max-width: 450px) {
     display: none;
