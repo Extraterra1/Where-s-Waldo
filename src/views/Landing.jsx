@@ -32,6 +32,7 @@ const Landing = () => {
   const [lastClick, setLastClick] = useState(null);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [gameState, setGameState] = useState(initialGameState);
+  const [gameOver, setGameOver] = useState(false);
   const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart: true });
 
   const handleClick = (e) => {
@@ -59,11 +60,12 @@ const Landing = () => {
       return toast.error("That's not him :(");
     }
 
-    console.log('found');
-
     characterState.found = true;
+
     setGameState({ ...gameState, characterState });
     setMenuIsOpen(false);
+
+    if (gameState.beard.found && gameState.unibrow.found && gameState.squidward.found) setGameOver(true);
     return toast.success('Found his ass');
   };
 
