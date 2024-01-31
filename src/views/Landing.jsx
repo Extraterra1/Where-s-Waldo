@@ -25,7 +25,7 @@ const positions = {
 
 const Landing = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [lastClick, setLastClick] = useState({ x: 0, y: 0 });
+  const [lastClick, setLastClick] = useState(null);
 
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
@@ -60,7 +60,7 @@ const Landing = () => {
       </Coords>
       <Header />
       <StyledMain>
-        <Title>
+        <GameHeader>
           <h1>The Usual Suspects</h1>
           <div className="characters">
             <div className="item">
@@ -76,7 +76,7 @@ const Landing = () => {
               <h4>Squidward</h4>
             </div>
           </div>
-        </Title>
+        </GameHeader>
         <Image $lastClick={lastClick}>
           <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
           <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
@@ -88,7 +88,7 @@ const Landing = () => {
 
 export default Landing;
 
-const Title = styled.div`
+const GameHeader = styled.div`
   text-align: center;
   padding: 2rem;
   display: grid;
@@ -179,5 +179,6 @@ const Image = styled.div`
     width: 5rem;
     top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% - 2.5rem);
     left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% - 2.5rem);
+    visibility: ${(props) => (!props.$lastClick ? 'hidden' : 'inherit')};
   }
 `;
