@@ -152,12 +152,9 @@ const Image = styled.div`
 
   & > .select-character {
     position: absolute;
-    top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% + 2.5rem);
+    top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% - 2.5rem);
 
-    left: calc(
-      ${(props) => (props.$lastClick ? props.$lastClick.x * 100 + '%' : 0)}
-        ${(props) => (props.$lastClick && props.$lastClick.x * 100 < 50 ? '+ 2.5rem' : '- 12rem')}
-    );
+    left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% + 5rem);
 
     background-color: var(--dark);
     padding: 5rem 2rem;
@@ -165,8 +162,18 @@ const Image = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
     @media (max-width: 450px) {
       padding: 3rem 1rem;
+      top: calc(
+        ${(props) => (props.$lastClick ? props.$lastClick.y * 100 + '%' : 0)}
+          ${(props) => (props.$lastClick && props.$lastClick.y * 100 < 50 ? '+ 2.5rem' : '- 20vh')}
+      );
+
+      left: calc(
+        ${(props) => (props.$lastClick ? props.$lastClick.x * 100 + '%' : 0)}
+          ${(props) => (props.$lastClick && props.$lastClick.x * 100 < 50 ? '+ 2.5rem' : '- 12rem')}
+      );
     }
 
     & > .item {
