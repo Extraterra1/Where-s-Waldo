@@ -67,7 +67,10 @@ const Landing = () => {
     setGameState({ ...gameState, characterState });
     setMenuIsOpen(false);
 
-    if (gameState.beard.found && gameState.unibrow.found && gameState.squidward.found) setGameOver(true);
+    if (gameState.beard.found && gameState.unibrow.found && gameState.squidward.found) {
+      setGameOver(true);
+      pause();
+    }
     return toast.success('Found his ass');
   };
 

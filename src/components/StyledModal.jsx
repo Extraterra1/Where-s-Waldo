@@ -5,10 +5,17 @@ import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
 
+import Leaderboard from './Leaderboard';
+
 Modal.setAppElement('#root');
 
 const StyledModal = ({ isOpen, closeModal, time }) => {
   const [user, setUser] = useState(null);
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    setUser(values.username);
+    setSubmitting(false);
+  };
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={modalStyles}>
@@ -27,6 +34,7 @@ const StyledModal = ({ isOpen, closeModal, time }) => {
               })}
               validateOnChange={false}
               validateOnBlur={false}
+              onSubmit={handleSubmit}
             >
               <Form>
                 <Input id="username" label="Enter your name" name="username" type="text" placeholder="hunter2" />
@@ -45,7 +53,7 @@ const StyledModal = ({ isOpen, closeModal, time }) => {
 StyledModal.propTypes = {
   isOpen: PropTypes.bool,
   closeModal: PropTypes.func,
-  time: string
+  time: PropTypes.string
 };
 
 export default StyledModal;
