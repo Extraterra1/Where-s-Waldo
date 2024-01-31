@@ -74,7 +74,7 @@ const Landing = () => {
   return (
     <>
       <Toaster toastOptions={{ style: { fontSize: '1.5rem' } }} />
-      <StyledModal isOpen={gameOver} />
+      <StyledModal isOpen={gameOver} time={minutes + ':' + seconds} />
 
       <Header minutes={minutes} seconds={seconds} />
       <StyledMain>

@@ -3,31 +3,40 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
+import { useState } from 'react';
 
 Modal.setAppElement('#root');
 
-const StyledModal = ({ isOpen, closeModal }) => {
+const StyledModal = ({ isOpen, closeModal, time }) => {
+  const [user, setUser] = useState(null);
+
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={modalStyles}>
       <ModalContainer>
-        <h1>You win!</h1>
-        <Formik
-          initialValues={{
-            username: ''
-          }}
-          validationSchema={Yup.object({
-            username: Yup.string().required('Required')
-          })}
-          validateOnChange={false}
-          validateOnBlur={false}
-        >
-          <Form>
-            <Input id="username" label="Enter your name" name="username" type="text" placeholder="hunter2" />
-            <div className="actions">
-              <SubmitBtn type="submit">Submit</SubmitBtn>
-            </div>
-          </Form>
-        </Formik>
+        {user ? (
+          <Leaderboard user={user} time={time} />
+        ) : (
+          <>
+            <h1>You win!</h1>
+            <Formik
+              initialValues={{
+                username: ''
+              }}
+              validationSchema={Yup.object({
+                username: Yup.string().required('Required')
+              })}
+              validateOnChange={false}
+              validateOnBlur={false}
+            >
+              <Form>
+                <Input id="username" label="Enter your name" name="username" type="text" placeholder="hunter2" />
+                <div className="actions">
+                  <SubmitBtn type="submit">Submit</SubmitBtn>
+                </div>
+              </Form>
+            </Formik>
+          </>
+        )}
       </ModalContainer>
     </Modal>
   );
@@ -35,7 +44,8 @@ const StyledModal = ({ isOpen, closeModal }) => {
 
 StyledModal.propTypes = {
   isOpen: PropTypes.bool,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  time: string
 };
 
 export default StyledModal;
