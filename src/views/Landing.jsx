@@ -1,11 +1,13 @@
 import Header from '../components/Header';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { Icon } from '@iconify/react';
 
 import baldiesImg from '../assets/baldies.png';
 
 const Landing = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [lastClick, setLastClick] = useState({ x: 0, y: 0 });
 
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
@@ -15,7 +17,7 @@ const Landing = () => {
     const normalizedX = x / width;
     const normalizedY = y / height;
 
-    console.log(`(${normalizedX}, ${normalizedY})`);
+    setLastClick({ x: normalizedX, y: normalizedY });
   };
 
   const updateCoords = (e) => {
@@ -41,8 +43,9 @@ const Landing = () => {
         <Title>
           <h1>Find them!</h1>
         </Title>
-        <Image>
+        <Image $lastClick={lastClick}>
           <img onClick={handleClick} src={baldiesImg} onMouseMove={updateCoords} />
+          <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
         </Image>
       </StyledMain>
     </>
@@ -80,10 +83,19 @@ const Title = styled.div`
 const Image = styled.div`
   height: 100%;
   width: 100%;
+  position: relative;
+  overflow: hidden;
 
   & > img {
     width: 100%;
     height: 100%;
-    position: relative;
+  }
+
+  & > svg {
+    position: absolute;
+    height: 5rem;
+    width: 5rem;
+    top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% - 2.5rem);
+    left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% - 2.5rem);
   }
 `;
