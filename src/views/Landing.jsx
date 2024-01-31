@@ -150,7 +150,12 @@ const Image = styled.div`
   & > .select-character {
     position: absolute;
     top: calc(${(props) => (props.$lastClick ? props.$lastClick.y * 100 : 0)}% + 2.5rem);
-    left: calc(${(props) => (props.$lastClick ? props.$lastClick.x * 100 : 0)}% + 2.5rem);
+
+    left: calc(
+      ${(props) => (props.$lastClick ? props.$lastClick.x * 100 + '%' : 0)}
+        ${(props) => (props.$lastClick && props.$lastClick.x * 100 < 50 ? '+ 2.5rem' : '- 12rem')}
+    );
+
     background-color: var(--dark);
     padding: 5rem 2rem;
     border-radius: 0.5rem;
