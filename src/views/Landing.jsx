@@ -4,6 +4,20 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 
 import baldiesImg from '../assets/baldies.png';
+const positions = {
+  beard: {
+    x: 0.5320487613055447,
+    y: 0.4838709677419355
+  },
+  squidward: {
+    x: 0.7664176169878096,
+    y: 0.7513904338153504
+  },
+  unibrow: {
+    x: 0.28784899724734564,
+    y: 0.5280867630700778
+  }
+};
 
 const Landing = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
@@ -16,6 +30,8 @@ const Landing = () => {
 
     const normalizedX = x / width;
     const normalizedY = y / height;
+
+    console.log(`Clicked x: ${normalizedX} / y: ${normalizedY}`);
 
     setLastClick({ x: normalizedX, y: normalizedY });
   };
