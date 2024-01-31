@@ -16,8 +16,8 @@ const initialGameState = {
     found: false
   },
   squidward: {
-    x: 0.7664176169878096,
-    y: 0.7513904338153504,
+    x: 0.7695635076681085,
+    y: 0.7338709677419355,
     found: false
   },
   unibrow: {
@@ -91,15 +91,15 @@ const Landing = () => {
           <h1>The Usual Suspects</h1>
           <div className="characters">
             <div className="item">
-              <img src={beardieImg} />
+              <img src={beardieImg} className={gameState.beard.found ? 'found' : null} />
               <h4>Beardie</h4>
             </div>
             <div className="item">
-              <img src={unibrowImg} />
+              <img src={unibrowImg} className={gameState.unibrow.found ? 'found' : null} />
               <h4>Uni</h4>
             </div>
             <div className="item">
-              <img src={squidwardImg} />
+              <img src={squidwardImg} className={gameState.squidward.found ? 'found' : null} />
               <h4>Squidward</h4>
             </div>
           </div>
@@ -189,10 +189,6 @@ const Image = styled.div`
         border-radius: 2rem;
         cursor: pointer;
 
-        &.found {
-          filter: grayscale(100%);
-        }
-
         @media (max-width: 450px) {
           max-width: 5rem;
         }
@@ -273,4 +269,8 @@ const Coords = styled.div`
 
 const StyledMain = styled.main`
   background-color: var(--dark-hover);
+
+  & img.found {
+    filter: grayscale(100%);
+  }
 `;
