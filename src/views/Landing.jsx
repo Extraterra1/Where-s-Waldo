@@ -88,15 +88,15 @@ const Landing = () => {
           <Icon icon="ph:circle-dashed-bold" color="var(--danger)" />
           <div className="select-character" style={{ visibility: menuIsOpen ? 'visible' : 'none', display: menuIsOpen ? 'block' : 'none' }}>
             <div className="item">
-              <img src={beardieImg} />
+              <img src={beardieImg} className={gameState.beard.found ? 'found' : null} />
               <span>Beardie</span>
             </div>
             <div className="item">
-              <img src={unibrowImg} />
+              <img src={unibrowImg} className={gameState.unibrow.found ? 'found' : null} />
               <span>Uni</span>
             </div>
             <div className="item">
-              <img src={squidwardImg} />
+              <img src={squidwardImg} className={gameState.squidward.found ? 'found' : null} />
               <span>Squidward</span>
             </div>
           </div>
@@ -162,6 +162,10 @@ const Image = styled.div`
         object-fit: cover;
         border-radius: 2rem;
         cursor: pointer;
+
+        &.found {
+          filter: grayscale(100%);
+        }
 
         @media (max-width: 450px) {
           max-width: 5rem;
