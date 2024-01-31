@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
+import { Toaster, toast } from 'react-hot-toast';
 
 import baldiesImg from '../assets/baldies.png';
 import beardieImg from '../assets/beardie.png';
@@ -59,13 +60,13 @@ const Landing = () => {
 
   const handleCharacterClick = (character) => {
     const characterState = gameState[character];
-    if (characterState.found) return null;
+    if (characterState.found) return toast.error("You've already found that character");
 
     console.log(`${character} is at ${characterState.x} / ${characterState.y}`);
 
     if (characterState.x.toFixed(1) !== lastClick.x.toFixed(1) || characterState.y.toFixed(1) !== lastClick.y.toFixed(1)) {
       setMenuIsOpen(false);
-      return console.log('not there');
+      return toast.error("There's nothing there :(");
     }
 
     console.log('found');
@@ -73,10 +74,12 @@ const Landing = () => {
     characterState.found = true;
     setGameState({ ...gameState, characterState });
     setMenuIsOpen(false);
+    return toast.success('Found his ass');
   };
 
   return (
     <>
+      <Toaster toastOptions={{ style: { fontSize: '1.5rem' } }} />
       <Coords>
         <h3>Current Position:</h3>
         <span>X: {coords.x}</span>
