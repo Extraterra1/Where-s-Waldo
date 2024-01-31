@@ -5,6 +5,8 @@ import { useState } from 'react';
 import baldiesImg from '../assets/baldies.png';
 
 const Landing = () => {
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+
   const handleClick = (e) => {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
@@ -16,14 +18,23 @@ const Landing = () => {
     console.log(`(${normalizedX}, ${normalizedY})`);
   };
 
-  const updateCoords = (e) => {};
+  const updateCoords = (e) => {
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+    const { width, height } = e.target;
+
+    const normalizedX = x / width;
+    const normalizedY = y / height;
+
+    setCoords({ x: normalizedX, y: normalizedY });
+  };
 
   return (
     <>
       <Coords>
         <h3>Current Position:</h3>
-        <span>X: </span>
-        <span>Y: </span>
+        <span>X: {coords.x}</span>
+        <span>Y: {coords.y}</span>
       </Coords>
       <Header />
       <StyledMain>
@@ -41,7 +52,7 @@ const Landing = () => {
 export default Landing;
 
 const Coords = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
 
@@ -73,5 +84,6 @@ const Image = styled.div`
   & > img {
     width: 100%;
     height: 100%;
+    position: relative;
   }
 `;
