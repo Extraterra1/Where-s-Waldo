@@ -53,7 +53,7 @@ const Landing = () => {
     const characterState = gameState[character];
     if (characterState.found) return toast.error("You've already found that character");
 
-    if (characterState.x.toFixed(1) !== lastClick.x.toFixed(1) || characterState.y.toFixed(1) !== lastClick.y.toFixed(1)) {
+    if (Math.abs(characterState.x - lastClick.x) > 0.05 || Math.abs(characterState.y - lastClick.y) > 0.05) {
       setMenuIsOpen(false);
       return toast.error("That's not him :(");
     }
