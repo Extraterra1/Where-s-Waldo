@@ -2,6 +2,8 @@
 
 Welcome to the Where's Waldo Clone project! This is a fun and interactive web application inspired by the classic Where's Waldo game. Your mission, should you choose to accept it, is to find and click on the hidden characters in the image.
 
+![website snapshot](https://raw.githubusercontent.com/Extraterra1/Wheres-Waldo/main/website-snapshot.png)
+
 Deployed on: https://wheres-baldo.netlify.app/
 
 ## Features
