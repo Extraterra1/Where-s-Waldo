@@ -35,6 +35,12 @@ const HeaderContainer = styled.nav`
 
   @media (max-width: 450px) {
     padding: 2rem 3rem;
+
+    .timer {
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
   }
 `;
 
